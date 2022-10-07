@@ -1,22 +1,28 @@
 <template>
   <div id="app">
-    <img alt="Vue logo" src="./assets/logo.png">
-    <HelloWorld msg="Welcome to Your Vue.js App"/>
+    <!-- <DataBinding></DataBinding> -->
+    <!-- <FormBinding1></FormBinding3> -->
+    <FormBinding3></FormBinding3>
   </div>
 </template>
 
 <script>
-import HelloWorld from './components/HelloWorld.vue'
+// import DataBinding from "./views/DataBinding.vue";
+// import FormBinding from "@/views/FormBinding.vue";
+// import FormBinding2 from "@/views/FormBinding2.vue";
+import FormBinding3 from "@/views/FormBinding3.vue";
 
 export default {
-  name: 'App',
   components: {
-    HelloWorld
-  }
-}
+    // DataBinding,
+    // FormBinding,
+    // FormBinding2,
+    FormBinding3,
+  },
+};
 </script>
 
-<style>
+<style scoped>
 #app {
   font-family: Avenir, Helvetica, Arial, sans-serif;
   -webkit-font-smoothing: antialiased;
