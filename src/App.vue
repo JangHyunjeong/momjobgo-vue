@@ -1,17 +1,26 @@
 <template>
   <div id="app">
-    <img alt="Vue logo" src="./assets/logo.png">
-    <HelloWorld msg="Welcome to Your Vue.js App"/>
+    <!-- <ClickEventView></ClickEventView> -->
+    <!-- <ChangeEvent></ChangeEvent> -->
+    <KeyEvent></KeyEvent>
   </div>
 </template>
 
 <script>
-import HelloWorld from './components/HelloWorld.vue'
+//import ClickEventView from './views/ClickEventView.vue';
+// import ChangeEvent from './views/ChangeEvent.vue';
+import KeyEvent from './views/KeyEvent.vue';
 
 export default {
-  name: 'App',
+  data() {
+    return{
+
+    }
+  },
   components: {
-    HelloWorld
+    //ClickEventView,
+    //ChangeEvent,
+    KeyEvent
   }
 }
 </script>
