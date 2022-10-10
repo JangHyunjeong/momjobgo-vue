@@ -1,17 +1,17 @@
 <template>
-    <div>
-        <div class="container">
-            <h1>TO DO LIST</h1>
+    <div class="container">
+        <div class="todo-wrap">
+            <h1 class="todo-title">TO DO LIST</h1>
 
             <div class="input-wrap">
                 <input 
                     type="text" 
-                    class="input-apply" 
+                    class="c-input input-apply" 
                     v-model="comment" 
                     placeholder="comment를 입력해주세요"
                     ref="input_ref"
                 >
-                <button class="btn-apply" @click="apply">등록</button>
+                <button class="c-btn btn-ok btn-apply" @click="apply">등록</button>
             </div>
 
 
@@ -133,66 +133,7 @@
 </script>
 
 <style scoped>
-h1 {
-    font-size: 30px;
-    margin-bottom: 50px;
-}
-.container {
-    width: 1200px;
-    margin: 0 auto;
-    padding: 50px;
-    min-height: 100vh;
-    background-color: #f6f6f6;
-}
-.input-wrap {
-    width: 100%;
-    display: flex;
-}
-.input-apply {
-    width: calc(100% - 120px);
-    border-radius: 5px;
-    height: 40px;
-    padding: 0 20px;
-    border: 1px solid #ddd;
-    box-shadow: 0 5px 15px rgb(0 0 0 / 10%);
-}
-.c-input {
-    width: 100%;
-    border-radius: 5px;
-    height: 40px;
-    padding: 0 20px;
-    border: 1px solid #ddd;
-    box-shadow: 0 5px 15px rgb(0 0 0 / 10%);
-}
-.btn-apply {
-    width: 120px;
-    height: 40px;
-    background: #4242d9;
-    border: 0;
-    margin-left: 5px;
-    border-radius: 5px;
-    color : #fff;
-    box-shadow: 0 5px 15px rgb(0 0 0 / 10%);    
-}
-.todos {
-    margin-top: 50px;
-}
-.todo-li {
-    margin-top: 10px;
-    background: #fff;
-    padding: 30px;
-    border-radius: 10px;
-    width: 100%;
-    box-shadow: 0 5px 15px rgb(0 0 0 / 10%);
-}
-.todo-li.empty {
-    padding: 30px;
-    background: transparent;
-    border: 0;
-}
-.todo-li:first-child {
-    margin-top: 0;
-}
+/* common css */
 .icon-new {
     display: inline-flex;
     align-items: center;
@@ -236,17 +177,66 @@ h1 {
 .btn-ok {
     color: #fff;
     background: #4242d9;
+    border-color: #4242d9;
+}
+.c-input {
+    width: 100%;
+    border-radius: 5px;
+    height: 40px;
+    padding: 0 20px;
+    border: 1px solid #ddd;
 }
 
-.read-wrap {
-
+/* only todos */
+.container {   
+    min-height: 100vh;
+    background-color: #f9f9f9;
 }
+.todo-wrap {
+    width: calc(100% - 40px);
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 50px 0;
+}
+.todo-title {
+    font-size: 30px;
+    margin-bottom: 50px;
+}
+.input-wrap {
+    width: 100%;
+    display: flex;
+}
+.input-apply {
+    width: calc(100% - 120px);
+    border-color: #fff;  
+    box-shadow: 0 5px 15px rgb(0 0 0 / 10%);
+}
+.btn-apply {
+    width: 120px;
+    margin-left: 5px;
+    box-shadow: 0 5px 15px rgb(0 0 0 / 10%);  
+}
+.todos {
+    margin-top: 50px;
+}
+.todo-li {
+    margin-top: 10px;
+    background: #fff;
+    padding: 30px;
+    border-radius: 10px;
+    width: 100%;
+    box-shadow: 0 5px 15px rgb(0 0 0 / 10%);
+}
+.todo-li.empty {
+    text-align: center;
+}
+.todo-li:first-child {
+    margin-top: 0;
+}
+
 .read-wrap .icon-new {
     margin-bottom: 20px;
 }
-.read-wrap .read-text {
-}
-
 .edit-wrap .c-input {
     display: flex;
     margin-right: 10px;
