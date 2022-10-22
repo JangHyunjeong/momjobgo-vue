@@ -1,33 +1,50 @@
 <template>
   <div id="app">
-     <!-- 1-1. props : 부모 컴포넌트가 가지고 있는 데이터를 자식에게 넘겨주는것. -->
-      <!-- 1-3. 여기서 v-bind 형태로 넣어주고..  -->
-      <!-- 3-1. 바인딩 해주지 않으면 특히 숫자 형을 제대로 읽어오지 못하는거같아 :message="message" -->
-     <ChildView
-        :message="message"
-     ></ChildView>
-     <input type="text" v-model="message">
+    <ListComponent
+      ref="listComponent"
+      :list="fruits"
+      :selected="selected"
+      @change="changeSelected"
+      label="name"
+      id="key"
+    ></ListComponent>
   </div>
 </template>
 
 <script>
-import ChildView from './views/ChildView.vue'
-
+import ListComponent from "./components/ListComponent.vue";
 export default {
-  name: 'App',
   components: {
-    ChildView
+    ListComponent,
   },
-  data(){
+  data() {
     return {
-      // 1-2. 부모가 가진 message
-      message: "Hello World",
-    }
-  }
-}
+      fruits: [
+        { name: "사과", key: "apple" },
+        { name: "복숭아", key: "peach" },
+        { name: "오렌지", key: "orange" },
+        { name: "딸기", key: "strawberry" },
+      ],
+      cars: [
+        { carName: "아반떼", carId: "1" },
+        { carName: "소나타", carId: "2" },
+        { carName: "그렌져", carId: "3" },
+      ],
+      selected: "",
+    };
+  },
+  methods: {
+    changeSelected(value) {
+      this.selected = value;
+    },
+  },
+  mounted() {
+    console.log(this.$refs.listComponent);
+  },
+};
 </script>
 
-<style>
+<style scoped>
 #app {
   font-family: Avenir, Helvetica, Arial, sans-serif;
   -webkit-font-smoothing: antialiased;

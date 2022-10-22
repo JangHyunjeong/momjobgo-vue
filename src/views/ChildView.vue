@@ -12,9 +12,9 @@ export default {
     // 1-4. 여기 props 에서 불러온 후 type과 default를 지정하면 컴포넌트에서 사용할 수 있다.
     props : {
         message : {
-            type: String,
-            default: "안녕하세요",
-            require: true,  // 필수로 들어가야하는값(경고만 내지만 오류는 아님)
+            type: Boolean,
+            default: false,
+            // require: true,  // 필수로 들어가야하는값(경고만 내지만 오류는 아님)
             // validator(value) {
             //     return value === 1;
             // }
