@@ -1,17 +1,20 @@
 <template>
   <div id="app">
-    <img alt="Vue logo" src="./assets/logo.png">
-    <HelloWorld msg="Welcome to Your Vue.js App"/>
+    <ControllerView></ControllerView>
+    <MonitorView></MonitorView>
   </div>
 </template>
 
 <script>
-import HelloWorld from './components/HelloWorld.vue'
+import ControllerView from './components/ControllerView.vue'
+import MonitorView from './components/MonitorView.vue'
 
 export default {
   name: 'App',
   components: {
-    HelloWorld
+    ControllerView,
+    MonitorView
+
   }
 }
 </script>
