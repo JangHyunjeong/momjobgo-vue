@@ -1,28 +1,34 @@
 <template>
-  <div id="app">
-    <img alt="Vue logo" src="./assets/logo.png">
-    <HelloWorld msg="Welcome to Your Vue.js App"/>
+  <div>
+    <LayoutView v-if="isLogin"></LayoutView>
+    <LoginView v-else></LoginView>
+    {{ $store.getters.name }}
+    {{ $store.getters.id }}
+    {{ $store.getters.token }}
   </div>
 </template>
 
 <script>
-import HelloWorld from './components/HelloWorld.vue'
+//import { mapGetters } from "vuex";
+import LayoutView from './views/layoutView/LayoutView.vue';
+import LoginView from './views/LoginView.vue';
 
 export default {
   name: 'App',
+  
+  data(){
+    return{
+      isLogin: false,
+    }
+  },
   components: {
-    HelloWorld
-  }
-}
-</script>
+    LayoutView,
+    LoginView,
+  },
 
-<style>
-#app {
-  font-family: Avenir, Helvetica, Arial, sans-serif;
-  -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale;
-  text-align: center;
-  color: #2c3e50;
-  margin-top: 60px;
-}
-</style>
+  methods:{
+    //...mapGetters(['name', 'id', 'token']),
+  }
+
+};
+</script>
