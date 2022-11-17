@@ -23,7 +23,10 @@
     </div>
     <div class="board-write-bottom-btns">
       <button class="btn btn-normal">취소</button>
-      <button class="btn btn-ok" @click="apply">작성완료</button>
+      <button class="btn btn-ok" v-if="this.bno" @click="editCustomList(bno)">
+        수정완료
+      </button>
+      <button class="btn btn-ok" @click="apply" v-else>작성완료</button>
     </div>
   </div>
 </template>
@@ -38,40 +41,92 @@ export default {
       title: "",
       contents: "",
       customList: [],
+      bno: 0,
     };
   },
 
   methods: {
     async apply() {
       const customList = [...this.customList];
+
+      // 글번호 생성하기
+      if (customList.length === 0) {
+        this.bno = 0;
+      } else {
+        const copyList = customList.sort(function (a, b) {
+          return b.bno - a.bno;
+        });
+        this.bno = copyList[0].bno + 1;
+      }
+
+      // custom api에 데이터 전달
       customList.push({
         title: this.title,
         contents: this.contents,
-        date: toLocaleString(new Date()),
+        date: new Date(),
+        bno: this.bno,
+        editable: false,
       });
+
       const response = await callPostCustom(KEY, {
         customList,
       });
 
-      this.customList = customList;
-      this.title = "";
-      this.contents = "";
-
-      /*if (response.status === this.HTTP_OK) {
+      if (response.status === 200) {
+        this.customList = customList;
+        this.title = "";
+        this.contents = "";
+        this.$router.push({ name: "home" });
       } else {
         alert("네트워크 에러");
-      }*/
+      }
+    },
+    async getCustomList() {
+      const response = await callGetCustom(KEY);
+
+      if (response.status === 200) {
+        this.customList = response?.data?.customList ?? [];
+      } else {
+        alert("네트워크 에러");
+      }
+    },
+
+    // 수정 데이터 가져오기
+    async callGetCustom(bno) {
+      const response = await callGetCustom(KEY);
+      this.customList = response.data.customList;
+      const customList = [...this.customList];
+      const findItem = customList.find(function (item) {
+        return (item.bno = bno);
+      });
+      const findIdx = customList.indexOf(findItem);
+      this.title = customList[findIdx].title;
+      this.contents = customList[findIdx].contents;
+    },
+
+    async editCustomList(bno) {
+      console.log(bno);
+      const customList = this.customList;
+      customList[0].title = this.title;
+      customList[0].contents = this.contents;
+
+      const response = await callPostCustom(KEY, {
+        customList: this.customList,
+      });
+      this.$router.push({ name: "home" });
+      if (!response.status === 200) {
+        alert("네트워크 에러");
+      }
     },
   },
 
-  async created() {
-    const response = await callGetCustom(KEY);
-    this.customList = response?.data?.customList ?? [];
+  created() {
+    this.getCustomList();
 
-    /*if (response.status === this.HTTP_OK) {
-      } else {
-        alert("네트워크 에러");
-      }*/
+    this.bno = this.$route.params.bno;
+    if (this.bno) {
+      this.callGetCustom(this.bno);
+    }
   },
 };
 </script>

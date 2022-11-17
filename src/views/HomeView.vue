@@ -22,13 +22,22 @@
             {{ item }}
           </div>
           <div class="top">
-            <p class="date">{{ toWriteTime(new Date(item.date)) }}</p>
+            <p class="date">
+              {{ toWriteTime(new Date(item.date)) }}
+            </p>
 
-            <button type="button" class="btn-edit">
+            <button
+              type="button"
+              class="btn-edit"
+              @click="item.editable == true"
+            >
               <span class="material-icons"> more_vert </span>
             </button>
 
-            <div class="board-edit-pop" v-show="editPopShow">
+            {{ item.editable }}
+            {{ item.bno }}
+
+            <div class="board-edit-pop" v-show="item.editable">
               <div class="dimmed"></div>
               <div class="pop-box">
                 <button class="btn-close">
@@ -36,10 +45,12 @@
                 </button>
                 <ul class="edit-list">
                   <li>
-                    <button>수정하기</button>
+                    <button @click="$router.push(`/write/${item.bno}`)">
+                      수정하기
+                    </button>
                   </li>
                   <li>
-                    <button>삭제하기</button>
+                    <button @click="deleteItem(item.bno)">삭제하기</button>
                   </li>
                 </ul>
               </div>
@@ -57,7 +68,7 @@
 
 <script>
 import date from "@/mixins/date";
-import { callGetCustom } from "@/services/custom";
+import { callGetCustom, callPostCustom } from "@/services/custom";
 import { mapGetters } from "vuex";
 
 const KEY = "customList";
@@ -67,7 +78,6 @@ export default {
   mixins: [date],
   data() {
     return {
-      editPopShow: false,
       customList: [],
     };
   },
@@ -75,8 +85,30 @@ export default {
   methods: {
     async callBoards() {
       const response = await callGetCustom(KEY);
-      console.log("33", response);
       this.customList = response?.data?.customList ?? [];
+    },
+
+    async deleteItem(bno) {
+      if (confirm("정말 삭제하시겠습니까?")) {
+        const customList = [...this.customList];
+        const findItem = customList.find(function (item) {
+          return (item.bno = bno);
+        });
+        const findIdx = customList.indexOf(findItem);
+        customList.splice(findIdx, 1);
+
+        const response = await callPostCustom(KEY, {
+          customList,
+        });
+
+        if (response.status === 200) {
+          this.customList = customList;
+        } else {
+          alert("네트워크 에러");
+        }
+      } else {
+        return;
+      }
     },
   },
 

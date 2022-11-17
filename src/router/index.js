@@ -27,6 +27,11 @@ const routes = [
     component: DiaryWrite,
   },
   {
+    path: "/write/:bno",
+    name: "diaryWrite",
+    component: DiaryWrite,
+  },
+  {
     path: "/other",
     name: "OtherDiaryView",
     component: OtherDiaryView,
