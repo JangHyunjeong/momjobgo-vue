@@ -22,7 +22,7 @@
       </dl>
     </div>
     <div class="board-write-bottom-btns">
-      <button class="btn btn-normal">취소</button>
+      <button class="btn btn-normal" @click="$router.push('/')">취소</button>
       <button class="btn btn-ok" v-if="this.bno" @click="editCustomList(bno)">
         수정완료
       </button>

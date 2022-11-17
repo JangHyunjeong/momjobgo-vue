@@ -13,14 +13,7 @@
     <div class="diary-list">
       <router-link to="/write" class="btn-ok">작성하기</router-link>
       <ul>
-        <li
-          class="diary-item c-card"
-          v-for="(item, i) in customList.slice().reverse()"
-          :key="i"
-        >
-          <div style="display: none">
-            {{ item }}
-          </div>
+        <li class="diary-item c-card" v-for="(item, i) in customList" :key="i">
           <div class="top">
             <p class="date">
               {{ toWriteTime(new Date(item.date)) }}
@@ -29,19 +22,17 @@
             <button
               type="button"
               class="btn-edit"
-              @click="item.editable == true"
+              @click="item.editable = true"
             >
               <span class="material-icons"> more_vert </span>
             </button>
-
-            {{ item.editable }}
-            {{ item.bno }}
-
             <div class="board-edit-pop" v-show="item.editable">
-              <div class="dimmed"></div>
+              <div class="dimmed" @click="item.editable = false"></div>
               <div class="pop-box">
                 <button class="btn-close">
-                  <span class="material-icons"> close </span>
+                  <span class="material-icons" @click="item.editable = false">
+                    close
+                  </span>
                 </button>
                 <ul class="edit-list">
                   <li>
@@ -86,6 +77,7 @@ export default {
     async callBoards() {
       const response = await callGetCustom(KEY);
       this.customList = response?.data?.customList ?? [];
+      console.log(this.customList);
     },
 
     async deleteItem(bno) {
