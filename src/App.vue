@@ -1,28 +1,286 @@
 <template>
   <div id="app">
-    <img alt="Vue logo" src="./assets/logo.png">
-    <HelloWorld msg="Welcome to Your Vue.js App"/>
+    <LayoutView v-if="hasToken"></LayoutView>
+    <LoginView v-else></LoginView>
   </div>
 </template>
 
 <script>
-import HelloWorld from './components/HelloWorld.vue'
+import LayoutView from "./views/layoutView/LayoutView.vue";
+import LoginView from "./views/LoginView.vue";
+import { mapGetters } from "vuex";
 
 export default {
-  name: 'App',
+  name: "App",
   components: {
-    HelloWorld
-  }
-}
+    LayoutView,
+    LoginView,
+  },
+
+  computed: {
+    ...mapGetters("user", ["hasToken"]),
+  },
+};
 </script>
 
 <style>
-#app {
-  font-family: Avenir, Helvetica, Arial, sans-serif;
-  -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale;
+/* reset */
+body,
+* {
+  font-family: "Noto Sans KR", sans-serif;
+}
+ul,
+li {
+  list-style: none;
+}
+a {
+  text-decoration: none;
+  color: inherit;
+  font-size: inherit;
+}
+
+/* common-style */
+.c-card {
+  padding: 20px;
+  border-radius: 10px;
+  box-shadow: 0 0 20px rgba(0, 0, 0, 0.1);
+  font-size: 14px;
+  color: #111;
+  background-color: #fff;
+}
+.btn-normal {
+  display: block;
+  width: 100%;
+  height: 50px;
+  line-height: 48px;
+  border-radius: 10px;
+  border: 1px solid #3d72ca;
+  background-color: #fff;
+  color: #3d72ca;
+  font-weight: 500;
   text-align: center;
-  color: #2c3e50;
-  margin-top: 60px;
+}
+.btn-ok {
+  display: block;
+  width: 100%;
+  height: 50px;
+  line-height: 50px;
+  border-radius: 10px;
+  background-color: #3d72ca;
+  color: #fff;
+  font-weight: 500;
+  text-align: center;
+}
+
+/* login */
+.login-wrap {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  height: 100vh;
+  padding: 0 20px;
+}
+.login-box > dl {
+  margin-top: 20px;
+}
+.login-box > dl:first-child {
+  margin-top: 0;
+}
+.login-box > dl > dt {
+  font-size: 16px;
+  margin-bottom: 10px;
+}
+
+.login-box > dl > dd input[type="text"],
+.login-box > dl > dd input[type="password"] {
+  display: block;
+  width: 100%;
+  height: 40px;
+  line-height: 38px;
+  border: 1px solid #ddd;
+}
+.login-box .btn-ok {
+  margin-top: 20px;
+}
+
+/* home */
+.profile {
+  display: flex;
+  align-items: center;
+}
+.profile > .avatar {
+  flex-shrink: 0;
+  width: 80px;
+  height: 80px;
+  border-radius: 50%;
+  border: 1px solid #ddd;
+  overflow: hidden;
+}
+.profile > .avatar > img {
+  display: block;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+.profile > .info {
+  padding-left: 15px;
+  width: calc(100% - 80px);
+}
+.profile > .info > .name {
+  font-size: 15px;
+  margin-bottom: 5px;
+  font-weight: 500;
+}
+.profile > .info > .mention {
+  font-size: 14px;
+  color: #7d7d7d;
+}
+
+.diary-list {
+  width: calc(100% + 40px);
+  margin-left: -20px;
+  margin-top: 30px;
+  padding: 30px 20px;
+  background: #f9f9f9;
+}
+.diary-list .btn-ok {
+  box-shadow: 0 0 20px rgb(0 0 0 / 10%);
+  margin-bottom: 20px;
+}
+.diary-list .diary-item {
+  margin-top: 20px;
+}
+.diary-list .diary-item:first-child {
+  margin-top: 0;
+}
+.diary-item > .top {
+  display: flex;
+  align-items: center;
+  position: relative;
+}
+.diary-item > .top > .date {
+  font-size: 18px;
+  font-weight: 500;
+}
+.diary-item > .top > .status {
+  color: #aaa;
+  font-size: 12px;
+  margin-left: 10px;
+}
+.diary-item > .top > .btn-edit {
+  position: absolute;
+  right: -5px;
+  top: 0px;
+}
+.diary-item > .cont {
+  margin-top: 15px;
+}
+.diary-item > .cont > .title {
+  font-weight: 500;
+  margin-bottom: 5px;
+}
+.diary-item > .cont > .txt {
+  color: #7d7d7d;
+}
+.diary-item > .like {
+  display: flex;
+  align-items: center;
+  margin-top: 20px;
+}
+.diary-item > .like .cnt {
+  padding-left: 5px;
+  color: #aaa;
+  font-size: 12px;
+  color: #7d7d7d;
+}
+
+.board-edit-pop {
+  position: fixed;
+  left: 0;
+  top: 0;
+  width: 100%;
+  height: 100%;
+  z-index: 100;
+}
+.board-edit-pop > .dimmed {
+  width: 100%;
+  height: 100%;
+  background: rgba(0, 0, 0, 0.8);
+  position: absolute;
+  left: 0;
+  top: 0;
+  z-index: -1;
+}
+.board-edit-pop > .pop-box {
+  width: 100%;
+  padding: 30px 0 20px;
+  background-color: #fff;
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  z-index: 1;
+}
+.board-edit-pop > .pop-box .btn-close {
+  display: block;
+  width: 40px;
+  height: 40px;
+  position: absolute;
+  right: 10px;
+  top: 10px;
+}
+.board-edit-pop > .pop-box .edit-list button {
+  padding: 10px 20px;
+  font-size: 16px;
+}
+
+/* write */
+.sub-title {
+  text-align: center;
+  font-size: 22px;
+  font-weight: 500;
+  margin-bottom: 30px;
+}
+.board-write > dl {
+  margin-top: 20px;
+}
+.board-write > dl:first-child {
+  margin-top: 0;
+}
+.board-write > dl > dt {
+  font-size: 16px;
+  color: #111;
+  margin-bottom: 10px;
+}
+.board-write > dl > dd input[type="text"] {
+  display: block;
+  width: 100%;
+  height: 40px;
+  line-height: 38px;
+  padding: 0 20px;
+  border: 1px solid #ddd;
+}
+.board-write > dl > dd textarea {
+  display: block;
+  width: 100%;
+  height: 300px;
+  padding: 10px 20px;
+  border: 1px solid #ddd;
+}
+.c-chk-group {
+  display: flex;
+  flex-wrap: wrap;
+}
+.c-chk-group .c-chk {
+  margin-right: 20px;
+}
+.board-write-bottom-btns {
+  margin-top: 50px;
+  display: flex;
+}
+.board-write-bottom-btns > .btn {
+  margin-right: 10px;
+}
+.board-write-bottom-btns > .btn:last-child {
+  margin-right: 0;
 }
 </style>
