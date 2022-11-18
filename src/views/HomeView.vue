@@ -12,8 +12,12 @@
 
     <div class="diary-list">
       <router-link to="/write" class="btn-ok">작성하기</router-link>
-      <ul>
-        <li class="diary-item c-card" v-for="(item, i) in customList" :key="i">
+      <ul v-if="customList">
+        <li
+          class="diary-item c-card"
+          v-for="(item, i) in customList.slice().reverse()"
+          :key="i"
+        >
           <div class="top">
             <p class="date">
               {{ toWriteTime(new Date(item.date)) }}
@@ -51,6 +55,12 @@
             <p class="title">{{ item.title }}</p>
             <p class="txt">{{ item.contents }}</p>
           </div>
+        </li>
+      </ul>
+      <ul class="empty-list" v-else>
+        <li class="c-card">
+          작성된 일기가 없습니다.<br />
+          첫번째 일기를 작성해보세요.
         </li>
       </ul>
     </div>
