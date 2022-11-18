@@ -71,6 +71,33 @@ a {
   font-weight: 500;
   text-align: center;
 }
+/* layout */
+.app-header {
+  padding: 20px;
+  background-color: #f2f2f2;
+  position: sticky;
+  top: 0;
+  left: 0;
+  width: 100%;
+  display: flex;
+  justify-content: flex-end;
+  box-shadow: 0 0 20px rgb(0 0 0 / 10%);
+  z-index: 50;
+}
+.btn-logout {
+  display: block;
+  padding: 0 20px;
+  height: 30px;
+  line-height: 30px;
+  background: #fff;
+  border: 1px solid #ddd;
+  border-radius: 5px;
+  font-size: 14px;
+}
+.router-container {
+  margin-top: 30px;
+  padding: 0 20px;
+}
 
 /* login */
 .login-wrap {
@@ -98,6 +125,7 @@ a {
   height: 40px;
   line-height: 38px;
   border: 1px solid #ddd;
+  padding: 0 20px;
 }
 .login-box .btn-ok {
   margin-top: 20px;
@@ -135,7 +163,16 @@ a {
   font-size: 14px;
   color: #7d7d7d;
 }
-
+.empty-list li {
+  border-radius: 10px;
+  min-height: 200px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: #7d7d7d;
+  text-align: center;
+  font-size: 14px;
+}
 .diary-list {
   width: calc(100% + 40px);
   margin-left: -20px;
@@ -274,7 +311,7 @@ a {
   margin-right: 20px;
 }
 .board-write-bottom-btns {
-  margin-top: 50px;
+  margin: 50px 0;
   display: flex;
 }
 .board-write-bottom-btns > .btn {
