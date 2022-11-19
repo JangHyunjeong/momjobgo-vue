@@ -53,7 +53,7 @@ export default {
         this.setId(userInfo.data.id);
         this.setName(userInfo.data.name);
       } catch (error) {
-        console.log(error);
+        alert("네트워크 에러");
       }
     },
   },

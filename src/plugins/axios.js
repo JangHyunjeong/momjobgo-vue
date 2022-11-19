@@ -2,7 +2,7 @@ import axios from "axios";
 import store from "@/store";
 
 const instance = axios.create({
-  baseURL: "https://api.devcury.kr",
+  baseURL: process.env.VUE_APP_BASE_URL,
 });
 
 export const callApi = async (config) => {

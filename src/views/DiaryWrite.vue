@@ -94,7 +94,12 @@ export default {
     // 수정 데이터 가져오기
     async callGetCustom(bno) {
       const response = await callGetCustom(KEY);
-      this.customList = response.data.customList;
+      if (response.status === 200) {
+        this.customList = response.data.customList;
+      } else {
+        alert("네트워크 에러");
+      }
+
       const customList = this.customList;
       const findItem = function findItem(item) {
         if (item.bno === bno) {

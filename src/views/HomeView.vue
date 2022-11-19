@@ -84,8 +84,11 @@ export default {
   methods: {
     async callBoards() {
       const response = await callGetCustom(KEY);
-      this.customList = response?.data?.customList ?? [];
-      console.log(this.customList);
+      try {
+        this.customList = response?.data?.customList ?? [];
+      } catch (error) {
+        alert("네트워크 에러");
+      }
     },
 
     async deleteItem(bno) {
@@ -101,17 +104,14 @@ export default {
         const findIdx = customList.indexOf(target);
         customList.splice(findIdx, 1);
 
-        const response = await callPostCustom(KEY, {
+        await callPostCustom(KEY, {
           customList,
         });
-
-        if (response.status === 200) {
+        try {
           this.customList = customList;
-        } else {
+        } catch (error) {
           alert("네트워크 에러");
         }
-      } else {
-        return;
       }
     },
   },
