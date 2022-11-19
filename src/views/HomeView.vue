@@ -12,9 +12,12 @@
 
     <div class="diary-list">
       <router-link to="/write" class="btn-ok">작성하기</router-link>
-      <ul v-if="customList.length > 0">
-        <li class="diary-item c-card" v-for="(item, i) in customList" :key="i">
-          <!-- .slice().reverse() -->
+      <ul v-if="HomeCustomList.length > 0">
+        <li
+          class="diary-item c-card"
+          v-for="(item, i) in HomeCustomList"
+          :key="i"
+        >
           <div class="top">
             <p class="date">
               {{ toWriteTime(new Date(item.date)) }}
@@ -117,7 +120,12 @@ export default {
   },
 
   computed: {
-    ...mapGetters("user", ["id", "name"]),
+    ...mapGetters("user", ["name"]),
+    HomeCustomList() {
+      return [...this.customList].sort((a, b) => {
+        return new Date(b.date).getTime() - new Date(a.date).getTime();
+      });
+    },
   },
 
   created() {
