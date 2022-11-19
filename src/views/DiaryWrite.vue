@@ -41,7 +41,7 @@ export default {
       title: "",
       contents: "",
       customList: [],
-      bno: 0,
+      bno: Number(0),
     };
   },
 
@@ -51,7 +51,7 @@ export default {
 
       // 글번호 생성하기
       if (customList.length === 0) {
-        this.bno = 0;
+        this.bno = Number(0);
       } else {
         const copyList = customList.sort(function (a, b) {
           return b.bno - a.bno;
@@ -123,7 +123,7 @@ export default {
   created() {
     this.getCustomList();
 
-    this.bno = this.$route.params.bno;
+    this.bno = Number(this.$route.params.bno);
     if (this.bno) {
       this.callGetCustom(this.bno);
     }

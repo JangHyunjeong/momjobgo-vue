@@ -6,7 +6,7 @@
       </div>
       <div class="info">
         <p class="name">{{ name }}</p>
-        <p class="mention">일상의 생각들을 적습니다. 오늘은 하늘이 파라네여</p>
+        <p class="mention">일상의 생각들을 적습니다.</p>
       </div>
     </div>
 
