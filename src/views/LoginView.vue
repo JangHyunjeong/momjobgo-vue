@@ -33,26 +33,28 @@ export default {
     ...mapActions("user", ["setToken", "setName", "setId"]),
 
     async login() {
-      const response = await callApi({
-        url: "/auth/user",
-        method: "post",
-        data: {
-          id: this.id,
-          pwd: this.password,
-        },
-      });
+      try {
+        const response = await callApi({
+          url: "/auth/user",
+          method: "post",
+          data: {
+            id: this.id,
+            pwd: this.password,
+          },
+        });
 
-      console.log(response.data);
-      this.setToken(response.data.token);
+        this.setToken(response.data.token);
 
-      const userInfo = await callApi({
-        url: "/api/auth/user",
-        method: "GET",
-      });
+        const userInfo = await callApi({
+          url: "/api/auth/user",
+          method: "GET",
+        });
 
-      console.log(userInfo.data);
-      this.setId(userInfo.data.id);
-      this.setName(userInfo.data.name);
+        this.setId(userInfo.data.id);
+        this.setName(userInfo.data.name);
+      } catch (error) {
+        console.log(error);
+      }
     },
   },
 };

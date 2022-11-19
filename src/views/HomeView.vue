@@ -89,7 +89,6 @@ export default {
     },
 
     async deleteItem(bno) {
-      console.log(`bno ${bno}`);
       if (confirm("정말 삭제하시겠습니까?")) {
         // 배열에서 bno 찾아서 슬라이스
         const customList = this.customList;
