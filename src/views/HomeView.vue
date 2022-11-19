@@ -12,12 +12,9 @@
 
     <div class="diary-list">
       <router-link to="/write" class="btn-ok">작성하기</router-link>
-      <ul v-if="customList">
-        <li
-          class="diary-item c-card"
-          v-for="(item, i) in customList.slice().reverse()"
-          :key="i"
-        >
+      <ul v-if="customList.length > 0">
+        <li class="diary-item c-card" v-for="(item, i) in customList" :key="i">
+          <!-- .slice().reverse() -->
           <div class="top">
             <p class="date">
               {{ toWriteTime(new Date(item.date)) }}
@@ -30,6 +27,7 @@
             >
               <span class="material-icons"> more_vert </span>
             </button>
+
             <div class="board-edit-pop" v-show="item.editable">
               <div class="dimmed" @click="item.editable = false"></div>
               <div class="pop-box">
@@ -91,12 +89,17 @@ export default {
     },
 
     async deleteItem(bno) {
+      console.log(`bno ${bno}`);
       if (confirm("정말 삭제하시겠습니까?")) {
-        const customList = [...this.customList];
-        const findItem = customList.find(function (item) {
-          return (item.bno = bno);
-        });
-        const findIdx = customList.indexOf(findItem);
+        // 배열에서 bno 찾아서 슬라이스
+        const customList = this.customList;
+        const findItem = function findItem(item) {
+          if (item.bno === bno) {
+            return true;
+          }
+        };
+        const target = customList.find(findItem);
+        const findIdx = customList.indexOf(target);
         customList.splice(findIdx, 1);
 
         const response = await callPostCustom(KEY, {

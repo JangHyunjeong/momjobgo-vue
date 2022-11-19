@@ -41,7 +41,7 @@ export default {
       title: "",
       contents: "",
       customList: [],
-      bno: Number(0),
+      bno: Number(1),
     };
   },
 
@@ -51,7 +51,7 @@ export default {
 
       // 글번호 생성하기
       if (customList.length === 0) {
-        this.bno = Number(0);
+        this.bno = Number(1);
       } else {
         const copyList = customList.sort(function (a, b) {
           return b.bno - a.bno;
@@ -95,20 +95,31 @@ export default {
     async callGetCustom(bno) {
       const response = await callGetCustom(KEY);
       this.customList = response.data.customList;
-      const customList = [...this.customList];
-      const findItem = customList.find(function (item) {
-        return (item.bno = bno);
-      });
-      const findIdx = customList.indexOf(findItem);
+      const customList = this.customList;
+      const findItem = function findItem(item) {
+        if (item.bno === bno) {
+          return true;
+        }
+      };
+      const target = customList.find(findItem);
+      const findIdx = customList.indexOf(target);
+      console.log("findIdx :", findIdx);
       this.title = customList[findIdx].title;
       this.contents = customList[findIdx].contents;
     },
 
     async editCustomList(bno) {
-      console.log(bno);
+      // 배열에서 bno 찾아서 슬라이스
       const customList = this.customList;
-      customList[0].title = this.title;
-      customList[0].contents = this.contents;
+      const findItem = function findItem(item) {
+        if (item.bno === bno) {
+          return true;
+        }
+      };
+      const target = customList.find(findItem);
+      const findIdx = customList.indexOf(target);
+      customList[findIdx].title = this.title;
+      customList[findIdx].contents = this.contents;
 
       const response = await callPostCustom(KEY, {
         customList: this.customList,
