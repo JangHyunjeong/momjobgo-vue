@@ -2,7 +2,8 @@ import Vue from "vue";
 import VueRouter from "vue-router";
 import HomeView from "../views/HomeView.vue";
 import DiaryWrite from "../views/DiaryWrite.vue";
-//import OtherDiaryView from "../views/OtherDiaryView.vue";
+import JoinView from "../views/JoinView.vue";
+import LoginView from "../views/LoginView";
 
 Vue.use(VueRouter);
 
@@ -12,15 +13,6 @@ const routes = [
     name: "home",
     component: HomeView,
   },
-  // {
-  //   path: "/about",
-  //   name: "about",
-  //   // route level code-splitting
-  //   // this generates a separate chunk (about.[hash].js) for this route
-  //   // which is lazy-loaded when the route is visited.
-  //   component: () =>
-  //     import(/* webpackChunkName: "about" */ "../views/AboutView.vue"),
-  // },
   {
     path: "/write",
     name: "diaryWrite",
@@ -31,11 +23,16 @@ const routes = [
     name: "diaryWrite",
     component: DiaryWrite,
   },
-  // {
-  //   path: "/other",
-  //   name: "OtherDiaryView",
-  //   component: OtherDiaryView,
-  // },
+  {
+    path: "/join",
+    name: "joinView",
+    component: JoinView,
+  },
+  {
+    path: "/login",
+    name: "loginView",
+    component: LoginView,
+  },
 ];
 
 const router = new VueRouter({

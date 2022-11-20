@@ -14,6 +14,9 @@ a {
 }
 
 /* common-style */
+.color-red {
+  color: #ca3d3d;
+}
 .c-card {
   padding: 20px;
   border-radius: 10px;
@@ -78,8 +81,18 @@ a {
   display: flex;
   flex-direction: column;
   justify-content: center;
-  height: 100vh;
-  padding: 0 20px;
+  min-height: 100vh;
+  padding: 50px 20px;
+}
+.login-box {
+  padding: 30px 20px;
+}
+.login-box .desc {
+  font-size: 16px;
+  padding: 15px 20px;
+  background: #f9f9f9;
+  border-radius: 10px;
+  margin-bottom: 30px;
 }
 .login-box > dl {
   margin-top: 20px;
@@ -90,6 +103,15 @@ a {
 .login-box > dl > dt {
   font-size: 16px;
   margin-bottom: 10px;
+}
+.login-box > dl > dt > strong {
+  font-weight: 400;
+  position: relative;
+}
+.login-box > dl > dt > strong::after {
+  content: "*";
+  color: #ca3d3d;
+  padding-left: 5px;
 }
 
 .login-box > dl > dd input[type="text"],
@@ -103,6 +125,35 @@ a {
 }
 .login-box .btn-ok {
   margin-top: 20px;
+}
+.login-join-btns {
+  margin-top: 20px;
+  display: flex;
+  justify-content: space-between;
+  font-size: 16px;
+}
+.login-join-btns .btn-join {
+  color: #3d72ca;
+  border-bottom: 1px solid;
+}
+
+/* join */
+.validation-txt {
+  margin-top: 8px;
+  font-size: 14px;
+  color: #7d7d7d;
+}
+.validation-txt.pass {
+  color: #3d72ca;
+}
+.validation-txt.no {
+  color: #ca3d3d;
+}
+.join-bottom-btn {
+  margin-top: 30px;
+}
+.join-bottom-btn > .btn {
+  margin-top: 10px;
 }
 
 /* home */
@@ -223,8 +274,9 @@ a {
 }
 .board-edit-pop > .pop-box {
   width: 100%;
-  padding: 30px 0 20px;
+  padding: 50px 0 60px;
   background-color: #fff;
+  border-radius: 10px 10px 0 0;
   position: absolute;
   bottom: 0;
   left: 0;
@@ -239,8 +291,12 @@ a {
   top: 10px;
 }
 .board-edit-pop > .pop-box .edit-list button {
-  padding: 10px 20px;
-  font-size: 16px;
+  display: block;
+  width: 100%;
+  padding: 20px;
+  font-size: 17px;
+  font-weight: 500;
+  text-align: left;
 }
 
 /* write */
