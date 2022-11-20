@@ -2,7 +2,11 @@
   <div id="app">
     <LayoutView v-if="hasToken"></LayoutView>
     <JoinView v-if="!hasToken && this.$route.path === '/join'"></JoinView>
-    <LoginView v-if="!hasToken && this.$route.path === '/login'"></LoginView>
+    <LoginView
+      v-if="
+        !hasToken && (this.$route.path === '/login' || this.$route.path === '/')
+      "
+    ></LoginView>
   </div>
 </template>
 
