@@ -39,9 +39,7 @@ export default {
     async login() {
       const response = await callLogin({
         id: this.id,
-        pwd: thi
-
-        s.password,
+        pwd: this.password,
       });
       try {
         this.setToken(response.data.token);
